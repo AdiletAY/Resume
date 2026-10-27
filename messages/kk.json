@@ -1,9 +1,5 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "home_page": "Басты бет",
-  "about_page": "Біз туралы",
-  "example_message": "i18n қолданбаңызға қош келдіңіз.",
-  "language_label": "Тіл",
-  "current_locale": "Ағымдағы тіл: {locale}",
-  "learn_router": "Paraglide JS үйрену"
+  "app_name": "Түйіндеме",
+  "language_label": "Тіл"
 }

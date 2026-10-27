@@ -7,7 +7,13 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-import { Header } from '../components/header'
+import { AppSidebar } from '../components/app-sidebar'
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '../components/ui/sidebar'
+import { TooltipProvider } from '../components/ui/tooltip'
 
 import { getLocale } from '#/paraglide/runtime'
 
@@ -53,13 +59,20 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={getLocale()}>
+    <html lang={getLocale()} className="dark">
       <head>
         <HeadContent />
       </head>
       <body>
-        <Header />
-        {children}
+        <TooltipProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset className="mx-2 my-4">
+              <SidebarTrigger className="m-2"/>
+              {children}
+            </SidebarInset>
+          </SidebarProvider>
+        </TooltipProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',

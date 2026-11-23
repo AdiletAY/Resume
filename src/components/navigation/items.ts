@@ -1,5 +1,6 @@
 import type { LinkProps } from '@tanstack/react-router'
 import {
+  CodeXml,
   Folder,
   House,
   Info,
@@ -16,8 +17,9 @@ export type BottomNavItem = {
 
 export const bottomNavItems: BottomNavItem[] = [
   { label: 'Home', icon: House, to: '/' },
-  { label: 'Skills', icon: Sparkles, to: '/' },
-  { label: 'Projects', icon: Folder, to: '/' },
-  { label: 'Achievements', icon: Trophy, to: '/' },
   { label: 'About', icon: Info, to: '/about' },
+  { label: 'Projects', icon: Folder, to: '/projects' },
+  { label: 'Skills', icon: Sparkles, to: '/skills' },
+  { label: 'Achievements', icon: Trophy, to: '/achievements' },
+  { label: 'Code', icon: CodeXml, to: '/code' },
 ]

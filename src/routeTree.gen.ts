@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
+import { Route as AchievementsIndexRouteImport } from './routes/achievements/index'
+import { Route as CodeIndexRouteImport } from './routes/code/index'
+import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +26,75 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
   path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AchievementsIndexRoute = AchievementsIndexRouteImport.update({
+  id: '/achievements/',
+  path: '/achievements/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CodeIndexRoute = CodeIndexRouteImport.update({
+  id: '/code/',
+  path: '/code/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SkillsIndexRoute = SkillsIndexRouteImport.update({
+  id: '/skills/',
+  path: '/skills/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about/': typeof AboutIndexRoute
+  '/achievements/': typeof AchievementsIndexRoute
+  '/code/': typeof CodeIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
+  '/skills/': typeof SkillsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutIndexRoute
+  '/achievements': typeof AchievementsIndexRoute
+  '/code': typeof CodeIndexRoute
+  '/projects': typeof ProjectsIndexRoute
+  '/skills': typeof SkillsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about/': typeof AboutIndexRoute
+  '/achievements/': typeof AchievementsIndexRoute
+  '/code/': typeof CodeIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
+  '/skills/': typeof SkillsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about/'
+  fullPaths:
+    '/' | '/about/' | '/achievements/' | '/code/' | '/projects/' | '/skills/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about/'
+  to: '/' | '/about' | '/achievements' | '/code' | '/projects' | '/skills'
+  id:
+    | '__root__'
+    | '/'
+    | '/about/'
+    | '/achievements/'
+    | '/code/'
+    | '/projects/'
+    | '/skills/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutIndexRoute: typeof AboutIndexRoute
+  AchievementsIndexRoute: typeof AchievementsIndexRoute
+  CodeIndexRoute: typeof CodeIndexRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
+  SkillsIndexRoute: typeof SkillsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +113,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/achievements/': {
+      id: '/achievements/'
+      path: '/achievements'
+      fullPath: '/achievements/'
+      preLoaderRoute: typeof AchievementsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/code/': {
+      id: '/code/'
+      path: '/code'
+      fullPath: '/code/'
+      preLoaderRoute: typeof CodeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skills/': {
+      id: '/skills/'
+      path: '/skills'
+      fullPath: '/skills/'
+      preLoaderRoute: typeof SkillsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutIndexRoute: AboutIndexRoute,
+  AchievementsIndexRoute: AchievementsIndexRoute,
+  CodeIndexRoute: CodeIndexRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
+  SkillsIndexRoute: SkillsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

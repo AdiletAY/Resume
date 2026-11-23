@@ -12,20 +12,9 @@ import { cn } from '#/lib/utils'
 import { Ellipsis, Languages } from 'lucide-react'
 import { m } from '#/paraglide/messages.js'
 import { getLocale, setLocale, locales } from '#/paraglide/runtime'
+import { Button } from '#/components/ui/button'
 
 const PHONE_VISIBLE_COUNT = 3
-
-const navIconClass = cn(
-  "size-12 justify-center rounded-2xl border border-transparent p-0 text-muted-foreground hover:bg-transparent hover:text-foreground focus:bg-transparent [&_svg:not([class*='size-'])]:size-6",
-  'data-active:border-teal/50 data-active:bg-teal/15 data-active:text-teal data-active:shadow-[0_0_16px_-4px_var(--color-teal)] data-active:hover:bg-teal/15 data-active:focus:bg-teal/15',
-)
-
-// Triggers also glow while their popup is open; hide the default chevron.
-const navTriggerClass = cn(
-  navIconClass,
-  'data-popup-open:border-teal/50 data-popup-open:bg-teal/15 data-popup-open:text-teal data-popup-open:shadow-[0_0_16px_-4px_var(--color-teal)] data-popup-open:hover:bg-teal/15 data-popup-open:focus:bg-teal/15',
-  '[&>svg:last-child]:hidden',
-)
 
 export function BottomNavbar() {
   const matchRoute = useMatchRoute()
@@ -33,8 +22,8 @@ export function BottomNavbar() {
   const isActive = (item: BottomNavItem) =>
     Boolean(matchRoute({ to: item.to, fuzzy: item.to !== '/' }))
 
-  const overflowItems = bottomNavItems.slice(PHONE_VISIBLE_COUNT)
-  const overflowActive = overflowItems.some(isActive)
+  const overflowbottomNavItems = bottomNavItems.slice(PHONE_VISIBLE_COUNT)
+  const overflowActive = overflowbottomNavItems.some(isActive)
 
   const currentLocale = getLocale()
   const localeItems = locales.map((locale) => ({
@@ -60,7 +49,7 @@ export function BottomNavbar() {
                 active={isActive(item)}
                 aria-label={item.label}
                 title={item.label}
-                className={navIconClass}
+                className="size-12 justify-center rounded-2xl border border-transparent p-0 text-muted-foreground hover:bg-transparent hover:text-foreground focus:bg-transparent data-active:border-teal/50 data-active:bg-teal/15 data-active:text-teal data-active:shadow-[0_0_16px_-4px_var(--color-teal)] data-active:hover:bg-teal/15 data-active:focus:bg-teal/15 [&_svg:not([class*='size-'])]:size-6"
                 render={<Link to={item.to} />}
               >
                 <item.icon strokeWidth={1.75} />
@@ -68,19 +57,22 @@ export function BottomNavbar() {
             </NavigationMenuItem>
           ))}
 
-          {overflowItems.length > 0 && (
+          {overflowbottomNavItems.length > 0 && (
             <NavigationMenuItem className="sm:hidden">
               <NavigationMenuTrigger
                 aria-label="More"
                 title="More"
                 data-active={overflowActive || undefined}
-                className={navTriggerClass}
+                className={cn(
+                  "size-12 justify-center rounded-2xl border border-transparent p-0 text-muted-foreground hover:bg-transparent hover:text-foreground focus:bg-transparent data-active:border-teal/50 data-active:bg-teal/15 data-active:text-teal data-active:shadow-[0_0_16px_-4px_var(--color-teal)] data-active:hover:bg-teal/15 data-active:focus:bg-teal/15 [&_svg:not([class*='size-'])]:size-6",
+                  'data-popup-open:border-teal/50 data-popup-open:bg-teal/15 data-popup-open:text-teal data-popup-open:shadow-[0_0_16px_-4px_var(--color-teal)] data-popup-open:hover:bg-teal/15 data-popup-open:focus:bg-teal/15 [&>svg:last-child]:hidden',
+                )}
               >
                 <Ellipsis strokeWidth={1.75} />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-48 gap-0.5">
-                  {overflowItems.map((item) => (
+                  {overflowbottomNavItems.map((item) => (
                     <li key={item.label}>
                       <NavigationMenuLink
                         active={isActive(item)}
@@ -101,7 +93,10 @@ export function BottomNavbar() {
             <NavigationMenuTrigger
               aria-label={m.language_label()}
               title={m.language_label()}
-              className={navTriggerClass}
+              className={cn(
+                "size-12 justify-center rounded-2xl border border-transparent p-0 text-muted-foreground hover:bg-transparent hover:text-foreground focus:bg-transparent data-active:border-teal/50 data-active:bg-teal/15 data-active:text-teal data-active:shadow-[0_0_16px_-4px_var(--color-teal)] data-active:hover:bg-teal/15 data-active:focus:bg-teal/15 [&_svg:not([class*='size-'])]:size-6",
+                'data-popup-open:border-teal/50 data-popup-open:bg-teal/15 data-popup-open:text-teal data-popup-open:shadow-[0_0_16px_-4px_var(--color-teal)] data-popup-open:hover:bg-teal/15 data-popup-open:focus:bg-teal/15 [&>svg:last-child]:hidden',
+              )}
             >
               <Languages strokeWidth={1.75} />
             </NavigationMenuTrigger>
@@ -109,18 +104,14 @@ export function BottomNavbar() {
               <ul className="grid w-48 gap-0.5">
                 {localeItems.map((item) => (
                   <li key={item.value}>
-                    <NavigationMenuLink
-                      active={item.value === currentLocale}
-                      className="w-full data-active:text-teal"
-                      render={
-                        <button
-                          type="button"
-                          onClick={() => setLocale(item.value)}
-                        />
-                      }
+                    <Button
+                      variant="ghost"
+                      aria-pressed={item.value === currentLocale}
+                      className="w-full justify-start aria-pressed:text-teal"
+                      onClick={() => setLocale(item.value)}
                     >
                       {item.label}
-                    </NavigationMenuLink>
+                    </Button>
                   </li>
                 ))}
               </ul>
